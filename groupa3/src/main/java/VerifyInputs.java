@@ -19,5 +19,22 @@ public class VerifyInputs {
         return matcher.matches();
     }
 
+    // Method to verify if the phone number entered is a true phone number
+	public boolean isValidPhoneNumber(String input)
+	{
+		// Phone number pattern
+		// The number should be 10 digits
+		String phoneNumberPattern = "^\\d{10}$";
+		
+		// Compile method used to validate the pattern
+		Pattern p = Pattern.compile(phoneNumberPattern);
+		
+		// Uses the pattern to make a matcher
+		Matcher m = p.matcher(input);
+		
+		// Returns true if the input matches the pattern, if not returns false
+		return (m.matches());
+	}
+    
     //Add the other methods
 }
