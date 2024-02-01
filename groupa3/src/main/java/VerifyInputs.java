@@ -19,8 +19,54 @@ public class VerifyInputs {
 	return matcher.matches();
 	}
 
-	// Method to verify if the phone number entered is a true phone number
-	public boolean isValidPhoneNumber(String input)
+    //Add the other methods
+
+    /**
+     * Verifies if the given password meets the specified security criteria.
+     * 
+     * Criteria include:
+     * - Minimum length of 8 characters
+     * - At least one uppercase letter
+     * - At least one lowercase letter
+     * - At least one digit
+     * - At least one special character from the set (!@#$%^&*)
+     * 
+     * @param password The password string to be verified.
+     * @return true if the password meets all the criteria, false otherwise.
+     */
+    public boolean verifyPassword(String password) 
+    {
+        // Check if the password is at least 8 characters long
+        if (password.length() < 8) 
+        {
+            return false;
+        }
+        // Check if the password contains at least one uppercase letter
+        if (!password.matches(".*[A-Z].*")) 
+        {
+            return false;
+        }
+        // Check if the password contains at least one lowercase letter
+        if (!password.matches(".*[a-z].*")) 
+        {
+            return false;
+        }
+        // Check if the password contains at least one digit
+        if (!password.matches(".*\\d.*")) 
+        {
+            return false;
+        }
+        // Check if the password contains at least one special character (!@#$%^&*)
+        if (!password.matches(".*[!@#$%^&*].*")) 
+        {
+            return false;
+        }
+        // If all checks pass, the password meets the criteria
+        return true;
+    }
+
+  // Method to verify if the phone number entered is a true phone number
+  public boolean isValidPhoneNumber(String input)
 	{
 		// Phone number pattern
 		// The number should be 10 digits
@@ -35,6 +81,5 @@ public class VerifyInputs {
 		// Returns true if the input matches the pattern, if not returns false
 		return (m.matches());
 	}
-    
-	//Add the other methods
+
 }
