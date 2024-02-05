@@ -30,8 +30,8 @@
                     <li class="nav-item"><a class="nav-link" href="contacts.html">Contacts</a></li>
                     <li class="nav-item"><a class="nav-link" href="../../static/team.html"></a></li>
                 </ul>
-                <a href="login.html" style="padding-right: 10px;">Log in</a>
-                <a class="btn btn-primary shadow" role="button" href="signup.html">Sign up</a>
+                <a th:href="@{/login}" style="padding-right: 10px;">Log in</a>
+                <a class="btn btn-primary shadow" role="button" th:href="@{/signup}">Sign up</a>
             </div>
         </div>
     </nav>
