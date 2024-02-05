@@ -1,6 +1,7 @@
 {
-    "java.compile.nullAnalysis.mode": "automatic",
+    //"java.compile.nullAnalysis.mode": "automatic",
     "cSpell.words": [
         "groupa"
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

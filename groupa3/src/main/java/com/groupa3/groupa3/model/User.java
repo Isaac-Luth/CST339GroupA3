@@ -176,7 +176,8 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    // The following toString method is useful for debugging and logging but can be removed if not needed.
+    // The following toString method is useful for debugging and logging but can be
+    // removed if not needed.
     /**
      * Returns a string representation of the User object.
      *
