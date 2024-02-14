@@ -1,6 +1,11 @@
+package com.groupa3.groupa3.util;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class VerifyInputs {
 
 	// isEmail method is used to verify that the input is indeed an email

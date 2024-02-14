@@ -1,8 +1,12 @@
 {
     //"java.compile.nullAnalysis.mode": "automatic",
     "cSpell.words": [
-        "groupa"
+        "firstname",
+        "groupa",
+        "lastname",
+        "Verifyemail",
+        "verifypassword"
     ],
-    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.configuration.updateBuildConfiguration": "automatic",
     "java.compile.nullAnalysis.mode": "automatic"
 }
