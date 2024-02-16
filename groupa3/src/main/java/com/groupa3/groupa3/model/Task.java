@@ -8,6 +8,9 @@ import javax.persistence.Id;
 @Entity
 public class Task {
 
+    //Basic representation of a task object model,
+    //Changes can be made later depending on the task needed.
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,7 +23,7 @@ public class Task {
 
     /**
      * Default constructor.
-     * Used by JPA and other frameworks for object instantiation.
+     * 
      */
     public Task() {
         // Default constructor
@@ -111,8 +114,6 @@ public class Task {
         this.completed = completed;
     }
 
-    // The following toString method is useful for debugging and logging but can be
-    // removed if not needed.
     /**
      * Returns a string representation of the Task object.
      *
