@@ -17,13 +17,15 @@ public class Task {
 
     private String name;
     private String description;
+    private double manHoursExpected; // Updated to use double for manHoursExpected
+    private double manHoursUtilized; // Updated to use double for manHoursUtilized
     private boolean completed;
 
     // Constructors, getters, and setters
 
     /**
      * Default constructor.
-     * 
+     *
      */
     public Task() {
         // Default constructor
@@ -35,11 +37,15 @@ public class Task {
      * @param name        The name of the task.
      * @param description The description of the task.
      * @param completed   The completion status of the task.
+     * @param manHoursExpected The expected man hours for the task.
+     * @param manHoursUtilized The utilized man hours for the task.
      */
-    public Task(String name, String description, boolean completed) {
+    public Task(String name, String description, boolean completed, double manHoursExpected, double manHoursUtilized) {
         this.name = name;
         this.description = description;
         this.completed = completed;
+        this.manHoursExpected = manHoursExpected;
+        this.manHoursUtilized = manHoursUtilized;
     }
 
     /**
@@ -97,6 +103,42 @@ public class Task {
     }
 
     /**
+     * Get the expected man hours of the task.
+     *
+     * @return The expected man hours of the task.
+     */
+    public double getManHoursExpected() {
+        return manHoursExpected;
+    }
+
+    /**
+     * Set the expected man hours of the task.
+     *
+     * @param manHoursExpected The expected man hours to set.
+     */
+    public void setManHoursExpected(double manHoursExpected) {
+        this.manHoursExpected = manHoursExpected;
+    }
+
+    /**
+     * Get the utilized man hours of the task.
+     *
+     * @return The utilized man hours of the task.
+     */
+    public double getManHoursUtilized() {
+        return manHoursUtilized;
+    }
+
+    /**
+     * Set the utilized man hours of the task.
+     *
+     * @param manHoursUtilized The utilized man hours to set.
+     */
+    public void setManHoursUtilized(double manHoursUtilized) {
+        this.manHoursUtilized = manHoursUtilized;
+    }
+
+    /**
      * Check if the task is completed.
      *
      * @return True if the task is completed, false otherwise.
@@ -122,7 +164,7 @@ public class Task {
     @Override
     public String toString() {
         return String.format(
-                "Task{id=%d, name='%s', description='%s', completed='%s'}",
-                id, name, description, completed);
+                "Task{id=%d, name='%s', description='%s', manHoursExpected=%.2f, manHoursUtilized=%.2f, completed='%s'}",
+                id, name, description, manHoursExpected, manHoursUtilized, completed);
     }
 }
