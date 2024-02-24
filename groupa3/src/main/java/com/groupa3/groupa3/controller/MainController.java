@@ -21,4 +21,14 @@ public class MainController {
     public String signup() {
         return "signup";
     }
+
+    @RequestMapping("menu")
+    public String menu() {
+        return "menu";
+    }
+
+    @RequestMapping("createTask")
+    public String createTask() {
+        return "createTask";
+    }
 }
