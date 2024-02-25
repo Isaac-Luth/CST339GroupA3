@@ -1,3 +1,4 @@
+package com.groupa3.groupa3.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
