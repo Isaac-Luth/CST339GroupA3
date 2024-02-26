@@ -8,8 +8,8 @@ import javax.persistence.Id;
 @Entity
 public class Task {
 
-    //Basic representation of a task object model,
-    //Changes can be made later depending on the task needed.
+    // Basic representation of a task object model,
+    // Changes can be made later depending on the task needed.
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,9 +34,9 @@ public class Task {
     /**
      * Constructor with parameters to initialize the Task object.
      *
-     * @param name        The name of the task.
-     * @param description The description of the task.
-     * @param completed   The completion status of the task.
+     * @param name             The name of the task.
+     * @param description      The description of the task.
+     * @param completed        The completion status of the task.
      * @param manHoursExpected The expected man hours for the task.
      * @param manHoursUtilized The utilized man hours for the task.
      */
@@ -46,6 +46,19 @@ public class Task {
         this.completed = completed;
         this.manHoursExpected = manHoursExpected;
         this.manHoursUtilized = manHoursUtilized;
+    }
+
+    /**
+     * Constructor with parameters to initialize the Task object.
+     *
+     * @param name             The name of the task.
+     * @param description      The description of the task.
+     * @param manHoursExpected The expected man hours for the task.
+     */
+    public Task(String name, String description, double manHoursExpected) {
+        this.name = name;
+        this.description = description;
+        this.manHoursExpected = manHoursExpected;
     }
 
     /**
