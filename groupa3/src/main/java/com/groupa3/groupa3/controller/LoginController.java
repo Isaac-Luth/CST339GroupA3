@@ -2,34 +2,40 @@ package com.groupa3.groupa3.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.groupa3.groupa3.service.AuthenticationServiceInterface;
-
+import com.groupa3.groupa3.dto.UserLoginDto;
+import com.groupa3.groupa3.service.LoginService;
 
 @Controller
-@RequestMapping("/login")
+@RequestMapping("/trylogin")
 public class LoginController {
-    
-    private final AuthenticationServiceInterface authenticationService;
 
     @Autowired
-    public LoginController(AuthenticationServiceInterface authenticationService) {
-        this.authenticationService = authenticationService;
+    private LoginService loginService;
+
+    @ModelAttribute("userLoginDto")
+    public UserLoginDto userLoginDto() {
+        return new UserLoginDto();
     }
 
     @PostMapping("/doLogin")
-    public String doLogin(@RequestParam String username, @RequestParam String password, Model model) {
-        if (authenticationService.authenticate(username, password)) {
-            // Authentication successful, proceed with further actions
-            return "home";
-        } else {
-            // Authentication failed, display error message
-            model.addAttribute("error", "Invalid username or password");
+    public String doLogin(@ModelAttribute("userLoginDto") UserLoginDto loginDto,
+            BindingResult result) {
+
+        if (!loginService.authenticate(loginDto.getEmail(), loginDto.getPassword())) {
             return "login";
         }
+
+        return "redirect:/trylogin?success";
+    }
+
+    @GetMapping
+    public String loginSuccess() {
+        return "menu";
     }
 }

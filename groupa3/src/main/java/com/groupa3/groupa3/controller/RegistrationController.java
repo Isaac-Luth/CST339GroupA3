@@ -3,6 +3,7 @@ package com.groupa3.groupa3.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,8 +25,10 @@ public class RegistrationController {
     }
 
     @PostMapping("/register")
-    public String registerUserAccount(@ModelAttribute("userRegistrationDto") UserRegistrationDto registrationDto, BindingResult result) {
-        // Here, you can add your validation logic. If there are errors, return back to the registration form view.
+    public String registerUserAccount(@ModelAttribute("userRegistrationDto") UserRegistrationDto registrationDto,
+            BindingResult result) {
+        // Here, you can add your validation logic. If there are errors, return back to
+        // the registration form view.
         if (result.hasErrors()) {
             return "signup"; // Assuming 'signup' is the name of your registration form view.
         }
@@ -33,5 +36,9 @@ public class RegistrationController {
         registrationService.register(registrationDto);
         return "redirect:/registration?success";
     }
-}
 
+    @GetMapping
+    public String registrationSuccess() {
+        return "menu";
+    }
+}

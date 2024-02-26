@@ -27,8 +27,9 @@ public class MainController {
         return "menu";
     }
 
-    @RequestMapping("createTask")
+    @RequestMapping("taskCreation")
     public String createTask() {
-        return "createTask";
+        return "taskCreation";
     }
+
 }

@@ -5,15 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-
 public class AuthenticationServiceTest {
     @Test
     void testAuthenticate_ValidCredentials() {
         // Arrange
-        AuthenticationService authenticationService = new AuthenticationService();
+        LoginService authenticationService = new LoginService();
 
         // Act
-        boolean isAuthenticated = authenticationService.authenticate("admin", "password");
+        boolean isAuthenticated = authenticationService.authenticate("admin@admin.com", "admin");
 
         // Assert
         assertTrue(isAuthenticated, "Authentication should succeed with valid credentials");
@@ -22,7 +21,7 @@ public class AuthenticationServiceTest {
     @Test
     void testAuthenticate_InvalidCredentials() {
         // Arrange
-        AuthenticationService authenticationService = new AuthenticationService();
+        LoginService authenticationService = new LoginService();
 
         // Act
         boolean isAuthenticated = authenticationService.authenticate("user", "wrongpass");

@@ -1,0 +1,26 @@
+.btn-group .btn {
+  font-size: 70%;
+  padding: 5%;
+  margin-bottom: 20%;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+@media (min-width: 576px) {
+  .btn-group .btn {
+    font-size: 80%;
+  }
+}
+
+@media (min-width: 768px) {
+  .btn-group .btn {
+    font-size: 90%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .btn-group .btn {
+    font-size: 100%;
+  }
+}
+
