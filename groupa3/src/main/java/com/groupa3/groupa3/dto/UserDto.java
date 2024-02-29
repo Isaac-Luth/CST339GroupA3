@@ -1,6 +1,6 @@
 package com.groupa3.groupa3.dto;
 
-public class UserRegistrationDto {
+public class UserDto {
     private String username;
     private String firstname;
     private String lastname;
@@ -9,6 +9,8 @@ public class UserRegistrationDto {
     private String verifyemail;
     private String password;
     private String verifypassword;
+
+    // other fields and getters/setters
 
     // Getters
     public String getUsername() {
