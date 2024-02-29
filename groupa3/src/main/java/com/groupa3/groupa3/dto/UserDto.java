@@ -9,6 +9,7 @@ public class UserDto {
     private String verifyemail;
     private String password;
     private String verifypassword;
+    private long id;
 
     // other fields and getters/setters
 
@@ -45,6 +46,10 @@ public class UserDto {
         return verifypassword;
     }
 
+    public long getId() {
+        return id;
+    }
+
     // Setters
     public void setUsername(String username) {
         this.username = username;
@@ -76,5 +81,9 @@ public class UserDto {
 
     public void setVerifypassword(String verifypassword) {
         this.verifypassword = verifypassword;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

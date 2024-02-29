@@ -15,11 +15,12 @@ import com.groupa3.groupa3.dto.UserDto;
 @Component
 @Scope("singleton")
 public class DataAccessObject {
-    private final UserRepository userRepository;
-    private final TaskRepository taskRepository;
+
+    private final UserRepositoryInterface userRepository;
+    private final TaskRepositoryInterface taskRepository;
 
     @Autowired
-    public DataAccessObject(UserRepository userRepository, TaskRepository taskRepository) {
+    public DataAccessObject(UserRepositoryInterface userRepository, TaskRepositoryInterface taskRepository) {
         this.userRepository = userRepository;
         this.taskRepository = taskRepository;
     }
