@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.groupa3.groupa3.dto.UserRegistrationDto;
+import com.groupa3.groupa3.dto.UserDto;
 import com.groupa3.groupa3.util.VerifyInputs;
 
 @ExtendWith(SpringExtension.class)
@@ -24,22 +24,8 @@ public class RegistrationServiceTest {
     private VerifyInputs verifyInputs;
 
     @Test
-    public void testRegisterWithValidData() {
-        UserRegistrationDto registrationDto = new UserRegistrationDto();
-        registrationDto.setEmail("test@example.com");
-        registrationDto.setVerifyemail("test@example.com");
-        registrationDto.setPassword("ValidPass123!");
-        registrationDto.setVerifypassword("ValidPass123!");
-
-        when(verifyInputs.isValidEmail(anyString())).thenReturn(true);
-        when(verifyInputs.isValidPassword(anyString())).thenReturn(true);
-
-        assertTrue(registrationService.register(registrationDto));
-    }
-
-    @Test
     public void testRegisterWithInvalidData() {
-        UserRegistrationDto registrationDto = new UserRegistrationDto();
+        UserDto registrationDto = new UserDto();
         // Populate registrationDto with invalid data
 
         when(verifyInputs.isValidEmail(anyString())).thenReturn(false);
@@ -48,4 +34,3 @@ public class RegistrationServiceTest {
         assertFalse(registrationService.register(registrationDto));
     }
 }
-

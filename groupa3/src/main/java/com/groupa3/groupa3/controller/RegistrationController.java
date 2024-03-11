@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.groupa3.groupa3.dto.UserRegistrationDto;
+import com.groupa3.groupa3.dto.UserDto;
 import com.groupa3.groupa3.service.RegistrationService;
 
 @Controller
@@ -20,12 +20,12 @@ public class RegistrationController {
 
     // Method to add an empty UserRegistrationDto to the model
     @ModelAttribute("userRegistrationDto")
-    public UserRegistrationDto userRegistrationDto() {
-        return new UserRegistrationDto();
+    public UserDto userDto() {
+        return new UserDto();
     }
 
     @PostMapping("/register")
-    public String registerUserAccount(@ModelAttribute("userRegistrationDto") UserRegistrationDto registrationDto,
+    public String registerUserAccount(@ModelAttribute("userRegistrationDto") UserDto registrationDto,
             BindingResult result) {
         // Here, you can add your validation logic. If there are errors, return back to
         // the registration form view.
@@ -33,7 +33,13 @@ public class RegistrationController {
             return "signup"; // Assuming 'signup' is the name of your registration form view.
         }
 
-        registrationService.register(registrationDto);
+        String tempPhoneNumber = registrationDto.getTelephone();
+        tempPhoneNumber = tempPhoneNumber.replaceAll("[^0-9]", "");
+        registrationDto.setTelephone(tempPhoneNumber);
+
+        if (!registrationService.register(registrationDto)) {
+            return "signup";
+        }
         return "redirect:/registration?success";
     }
 

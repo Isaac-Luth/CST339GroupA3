@@ -9,6 +9,8 @@ import com.groupa3.groupa3.dto.UserDto;
 public interface UserRepositoryInterface extends CrudRepository<UserDto, Long> {
     UserDto findByUsername(String username);
 
+    UserDto findByEmail(String email);
+
     UserDto findById(int id);
 
     boolean existsByUsername(String username);

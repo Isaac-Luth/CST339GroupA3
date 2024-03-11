@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.groupa3.groupa3.dto.UserLoginDto;
+import com.groupa3.groupa3.dao.DataAccessObject;
+import com.groupa3.groupa3.dto.UserDto;
 import com.groupa3.groupa3.service.LoginService;
 
 @Controller
@@ -16,18 +17,22 @@ import com.groupa3.groupa3.service.LoginService;
 public class LoginController {
 
     @Autowired
-    private LoginService loginService;
+    private DataAccessObject dataAccessObject;
 
     @ModelAttribute("userLoginDto")
-    public UserLoginDto userLoginDto() {
-        return new UserLoginDto();
+    public UserDto userLoginDto() {
+        return new UserDto();
     }
 
     @PostMapping("/doLogin")
-    public String doLogin(@ModelAttribute("userLoginDto") UserLoginDto loginDto,
+    public String doLogin(@ModelAttribute("userLoginDto") UserDto loginDto,
             BindingResult result) {
 
-        if (!loginService.authenticate(loginDto.getEmail(), loginDto.getPassword())) {
+        if (result.hasErrors()) {
+            return "login";
+        }
+
+        if (!dataAccessObject.authenticateUser(loginDto)) {
             return "login";
         }
 

@@ -11,8 +11,6 @@ public class UserDto {
     private String verifypassword;
     private long id;
 
-    // other fields and getters/setters
-
     // Getters
     public String getUsername() {
         return username;

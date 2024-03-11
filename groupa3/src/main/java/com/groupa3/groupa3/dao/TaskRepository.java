@@ -1,19 +1,46 @@
 package com.groupa3.groupa3.dao;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Optional;
 
+import javax.sql.DataSource;
+
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import com.groupa3.groupa3.dto.TaskDto;
 
+@SuppressWarnings("null")
 @Repository
 public class TaskRepository implements TaskRepositoryInterface {
 
+    @SuppressWarnings("unused")
+    private DataSource dataSource;
+    private JdbcTemplate jdbcTemplate;
+
+    public TaskRepository(DataSource dataSource) {
+        this.dataSource = dataSource;
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
+
+    @SuppressWarnings("unchecked")
     @Override
     public TaskDto save(TaskDto taskDto) {
-        // Implement logic to save taskDto to the database
-        // This is just a dummy implementation
-        taskDto.setId(1L); // Assigning a dummy ID for illustration
-        return taskDto;
+        String sql = "INSERT INTO task (Name, Description, Duration) VALUES (?, ?, ?)";
+        TaskDto savedTaskDto = new TaskDto();
+
+        try {
+            PreparedStatement pstmt = jdbcTemplate.getDataSource().getConnection().prepareStatement(sql);
+            pstmt.setObject(1, taskDto.getName());
+            pstmt.setObject(2, taskDto.getDescription());
+            pstmt.setObject(3, taskDto.getManHoursExpected());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return savedTaskDto;
     }
 
     @Override

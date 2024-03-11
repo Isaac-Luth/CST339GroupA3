@@ -1,34 +1,117 @@
 package com.groupa3.groupa3.dao;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Optional;
 
+import javax.sql.DataSource;
+
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import com.groupa3.groupa3.dao.UserRepository;
 import com.groupa3.groupa3.dto.UserDto;
 
+@SuppressWarnings("null")
 @Repository
 public class UserRepository implements UserRepositoryInterface {
 
+    @SuppressWarnings("unused")
+    private DataSource dataSource;
+    private JdbcTemplate jdbcTemplate;
+
+    public UserRepository(DataSource dataSource) {
+        this.dataSource = dataSource;
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
+
     @Override
     public UserDto findByUsername(String username) {
-        // Implement logic to find user by username in the database
-        // This is just a dummy implementation
+        String sql = "SELECT * FROM user WHERE username = ?";
         UserDto userDto = new UserDto();
-        userDto.setUsername(username);
-        userDto.setEmail("user@example.com");
-        // Add more properties as needed
+
+        try {
+            PreparedStatement pstmt = jdbcTemplate.getDataSource().getConnection().prepareStatement(sql);
+            pstmt.setObject(1, username);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                if (rs.getBoolean("IsActive") == false) {
+                    return userDto;
+                }
+
+                userDto.setId(rs.getLong("idUser"));
+                userDto.setUsername(rs.getString("Username"));
+                userDto.setEmail(rs.getString("Email"));
+                userDto.setPassword(rs.getString("Password"));
+                userDto.setFirstname(rs.getString("FirstName"));
+                userDto.setLastname(rs.getString("LastName"));
+                userDto.setTelephone(rs.getString("PhoneNumber"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return userDto;
+    }
+
+    @Override
+    public UserDto findByEmail(String email) {
+        String sql = "SELECT * FROM user WHERE email = ?";
+        UserDto userDto = new UserDto();
+
+        try {
+            PreparedStatement pstmt = jdbcTemplate.getDataSource().getConnection().prepareStatement(sql);
+            pstmt.setObject(1, email);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                if (rs.getBoolean("IsActive") == false) {
+                    return userDto;
+                }
+
+                userDto.setId(rs.getLong("idUser"));
+                userDto.setUsername(rs.getString("Username"));
+                userDto.setEmail(rs.getString("Email"));
+                userDto.setPassword(rs.getString("Password"));
+                userDto.setFirstname(rs.getString("FirstName"));
+                userDto.setLastname(rs.getString("LastName"));
+                userDto.setTelephone(rs.getString("PhoneNumber"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return userDto;
     }
 
     @Override
     public Optional<UserDto> findById(Long id) {
-        // Implement logic to find user by id in the database
-        // This is just a dummy implementation
+        String sql = "SELECT * FROM user WHERE idUser = ?";
         UserDto userDto = new UserDto();
-        userDto.setId(id);
-        userDto.setUsername("exampleUser");
-        userDto.setEmail("user@example.com");
-        // Add more properties as needed
+
+        try {
+            PreparedStatement pstmt = jdbcTemplate.getDataSource().getConnection().prepareStatement(sql);
+            pstmt.setObject(1, id);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                if (rs.getBoolean("IsActive") == false) {
+                    return Optional.of(userDto);
+                }
+
+                userDto.setId(rs.getLong("idUser"));
+                userDto.setUsername(rs.getString("Username"));
+                userDto.setEmail(rs.getString("Email"));
+                userDto.setPassword(rs.getString("Password"));
+                userDto.setFirstname(rs.getString("FirstName"));
+                userDto.setLastname(rs.getString("LastName"));
+                userDto.setTelephone(rs.getString("PhoneNumber"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return Optional.of(userDto);
     }
 
@@ -88,8 +171,23 @@ public class UserRepository implements UserRepositoryInterface {
 
     @Override
     public <S extends UserDto> S save(S entity) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+        String sql = "INSERT INTO user (Username, Email, Password, FirstName, LastName, PhoneNumber) VALUES (?, ?, ?, ?, ?, ?)";
+
+        try {
+            PreparedStatement pstmt = jdbcTemplate.getDataSource().getConnection().prepareStatement(sql);
+            pstmt.setString(1, entity.getUsername());
+            pstmt.setString(2, entity.getEmail());
+            pstmt.setString(3, entity.getPassword());
+            pstmt.setString(4, entity.getFirstname());
+            pstmt.setString(5, entity.getLastname());
+            pstmt.setString(6, entity.getTelephone());
+            System.out.println(pstmt.toString());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return entity;
     }
 
     @Override

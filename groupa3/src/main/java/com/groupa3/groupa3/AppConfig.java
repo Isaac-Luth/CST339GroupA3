@@ -1,8 +1,10 @@
 package com.groupa3.groupa3;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
 
 import com.groupa3.groupa3.dao.TaskRepositoryInterface;
 import com.groupa3.groupa3.dao.UserRepositoryInterface;
@@ -13,17 +15,13 @@ import com.groupa3.groupa3.dao.UserRepository;
 public class AppConfig {
 
     @Bean
-    public UserRepositoryInterface userDataRepository() {
-        // You need to provide the implementation for UserRepository.
-        // This could be an implementation class or you can instantiate it here.
-        return new UserRepository(); // Example: replace UserRepositoryImpl with your implementation
+    public UserRepositoryInterface userDataRepository(@Autowired DataSource dataSource) {
+        return new UserRepository(dataSource);
     }
 
     @Bean
-    public TaskRepositoryInterface taskDataRepository() {
-        // Similarly, provide the implementation for TaskRepository.
-        // Replace TaskRepositoryImpl with your implementation.
-        return new TaskRepository(); // Example: replace TaskRepositoryImpl with your implementation
+    public TaskRepositoryInterface taskDataRepository(@Autowired DataSource dataSource) {
+        return new TaskRepository(dataSource);
     }
 
 }
