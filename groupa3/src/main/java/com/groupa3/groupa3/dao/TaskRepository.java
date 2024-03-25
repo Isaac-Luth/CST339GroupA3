@@ -92,32 +92,36 @@ public class TaskRepository implements TaskRepositoryInterface{
 
     @Override
     public long count() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'count'");
+        String sql = "SELECT COUNT(*) FROM task";
+        return jdbcTemplate.queryForObject(sql, Long.class);
     }
 
     @Override
     public void delete(TaskDto entity) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        String sql = "DELETE FROM task WHERE idTask = ?";
+        jdbcTemplate.update(sql, entity.getId());
     }
 
     @Override
     public void deleteAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteAll'");
+        String sql = "DELETE FROM task";
+        jdbcTemplate.update(sql);
     }
 
     @Override
     public void deleteAll(Iterable<? extends TaskDto> entities) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteAll'");
+        String sql = "DELETE FROM task WHERE idTask = ?";
+        List<Object[]> ids = new ArrayList<>();
+        entities.forEach(task -> ids.add(new Object[]{task.getId()}));
+        jdbcTemplate.batchUpdate(sql, ids);
     }
 
     @Override
     public void deleteAllById(Iterable<? extends Long> ids) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteAllById'");
+        String sql = "DELETE FROM task WHERE idTask = ?";
+        List<Object[]> idList = new ArrayList<>();
+        ids.forEach(id -> idList.add(new Object[]{id}));
+        jdbcTemplate.batchUpdate(sql, idList);
     }
 
     @Override
@@ -134,8 +138,9 @@ public class TaskRepository implements TaskRepositoryInterface{
 
     @Override
     public boolean existsById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'existsById'");
+        String sql = "SELECT COUNT(*) FROM task WHERE idTask = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, new Object[]{id}, Integer.class);
+        return count != null && count > 0;
     }
 
     @Override
@@ -165,14 +170,18 @@ public class TaskRepository implements TaskRepositoryInterface{
 
     @Override
     public Iterable<TaskDto> findAllById(Iterable<Long> ids) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAllById'");
+        List<TaskDto> tasks = new ArrayList<>();
+        ids.forEach(id -> findById(id).ifPresent(tasks::add));
+        return tasks;
     }
 
     @Override
     public <S extends TaskDto> Iterable<S> saveAll(Iterable<S> entities) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'saveAll'");
+        String sql = "INSERT INTO task (idTask, Name, Description, Duration) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE Name = VALUES(Name), Description = VALUES(Description), Duration = VALUES(Duration)";
+        List<Object[]> batchArgs = new ArrayList<>();
+        entities.forEach(task -> batchArgs.add(new Object[]{task.getId(), task.getName(), task.getDescription(), task.getManHoursExpected()}));
+        jdbcTemplate.batchUpdate(sql, batchArgs);
+        return entities;
     }
 
     // Implement other methods defined in TaskRepository interface

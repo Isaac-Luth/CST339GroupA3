@@ -117,20 +117,20 @@ public class UserRepository implements UserRepositoryInterface {
 
     @Override
     public long count() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'count'");
+        String sql = "SELECT COUNT(*) FROM user";
+        return jdbcTemplate.queryForObject(sql, Long.class);
     }
 
     @Override
     public void delete(UserDto entity) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        String sql = "DELETE FROM user WHERE idUser = ?";
+        jdbcTemplate.update(sql, entity.getId());
     }
 
     @Override
     public void deleteAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteAll'");
+        String sql = "DELETE FROM user";
+        jdbcTemplate.update(sql);
     }
 
     @Override
@@ -147,14 +147,15 @@ public class UserRepository implements UserRepositoryInterface {
 
     @Override
     public void deleteById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
+        String sql = "DELETE FROM user WHERE idUser = ?";
+        jdbcTemplate.update(sql, id);
     }
 
     @Override
     public boolean existsById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'existsById'");
+        String sql = "SELECT COUNT(*) FROM user WHERE idUser = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, new Object[]{id}, Integer.class);
+        return count != null && count > 0;
     }
 
     @Override
@@ -204,8 +205,9 @@ public class UserRepository implements UserRepositoryInterface {
 
     @Override
     public boolean existsByUsername(String username) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'existsByUsername'");
+        String sql = "SELECT COUNT(*) FROM user WHERE Username = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, new Object[]{username}, Integer.class);
+        return count != null && count > 0;
     }
 
     // Implement other methods defined in UserRepository interface
