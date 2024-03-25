@@ -2,6 +2,7 @@ package com.groupa3.groupa3.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -102,5 +103,55 @@ public class DataAccessObject {
         }
 
         return taskCreated;
+    }
+
+    public List<TaskDto> getTasks() {
+        List<TaskDto> tasks = new ArrayList<>();
+
+        try {
+            taskRepository.findAll().forEach(tasks::add);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return tasks;
+    }
+
+    public TaskDto getTask(Long id) {
+        TaskDto taskDto = null;
+
+        try {
+            taskDto = taskRepository.findById(id).get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return taskDto;
+    }
+
+    public boolean updateTask(TaskDto taskDto) {
+        boolean taskUpdated = false;
+
+        try {
+            taskRepository.updateTask(taskDto);
+            taskUpdated = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return taskUpdated;
+    }
+
+    public boolean deleteTask(Long id) {
+        boolean taskDeleted = false;
+
+        try {
+            taskRepository.deleteById(id);
+            taskDeleted = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return taskDeleted;
     }
 }

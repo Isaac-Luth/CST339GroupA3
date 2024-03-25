@@ -39,4 +39,10 @@ public class TaskDto {
         return id;
     }
 
+    @Override
+    public String toString() {
+        return "TaskDto [id=" + id + ", name=" + name + ", description=" + description + ", manHoursExpected="
+                + manHoursExpected + "]";
+    }
+
 }

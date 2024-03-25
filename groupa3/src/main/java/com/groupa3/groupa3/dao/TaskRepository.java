@@ -7,13 +7,15 @@ import java.util.Optional;
 
 import javax.sql.DataSource;
 
+import java.util.*;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import com.groupa3.groupa3.dto.TaskDto;
 
 @SuppressWarnings("null")
 @Repository
-public class TaskRepository implements TaskRepositoryInterface {
+public class TaskRepository implements TaskRepositoryInterface{
 
     @SuppressWarnings("unused")
     private DataSource dataSource;
@@ -48,10 +50,45 @@ public class TaskRepository implements TaskRepositoryInterface {
         // Implement logic to find task by id in the database
         // This is just a dummy implementation
         TaskDto taskDto = new TaskDto();
-        taskDto.setId(id);
-        taskDto.setName("Example Task");
-        // Add more properties as needed
+        
+        String sql = "SELECT * FROM task WHERE idTask = ?";
+        try {
+            PreparedStatement pstmt = jdbcTemplate.getDataSource().getConnection().prepareStatement(sql);
+            pstmt.setObject(1, id);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                taskDto.setId(rs.getLong("idTask"));
+                taskDto.setName(rs.getString("Name"));
+                taskDto.setDescription(rs.getString("Description"));
+                taskDto.setManHoursExpected(rs.getDouble("Duration"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
         return Optional.of(taskDto);
+    }
+
+    public boolean updateTask(TaskDto taskDto) {
+        boolean taskUpdated = false;
+
+        String sql = "UPDATE task SET Name = ?, Description = ?, Duration = ? WHERE idTask = ?";
+
+        try {
+            PreparedStatement pstmt = jdbcTemplate.getDataSource().getConnection().prepareStatement(sql);
+            pstmt.setObject(1, taskDto.getName());
+            pstmt.setObject(2, taskDto.getDescription());
+            pstmt.setObject(3, taskDto.getManHoursExpected());
+            pstmt.setObject(4, taskDto.getId());
+            pstmt.executeUpdate();
+            taskUpdated = true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return taskUpdated;
     }
 
     @Override
@@ -86,8 +123,14 @@ public class TaskRepository implements TaskRepositoryInterface {
 
     @Override
     public void deleteById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
+        String sql = "DELETE FROM task WHERE idTask = ?";
+        try {
+            PreparedStatement pstmt = jdbcTemplate.getDataSource().getConnection().prepareStatement(sql);
+            pstmt.setObject(1, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -98,8 +141,27 @@ public class TaskRepository implements TaskRepositoryInterface {
 
     @Override
     public Iterable<TaskDto> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+        String sql = "SELECT * FROM task";
+
+        List<TaskDto> taskList = new ArrayList<TaskDto>();
+
+        try {
+            PreparedStatement pstmt = jdbcTemplate.getDataSource().getConnection().prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                TaskDto taskDto = new TaskDto();
+                taskDto.setId(rs.getLong("idTask"));
+                taskDto.setName(rs.getString("Name"));
+                taskDto.setDescription(rs.getString("Description"));
+                taskDto.setManHoursExpected(rs.getDouble("Duration"));
+                taskList.add(taskDto);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return taskList;
     }
 
     @Override
