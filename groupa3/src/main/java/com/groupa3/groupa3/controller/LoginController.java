@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.groupa3.groupa3.dao.DataAccessObject;
 import com.groupa3.groupa3.dto.UserDto;
-import com.groupa3.groupa3.service.LoginService;
 
 @Controller
 @RequestMapping("/trylogin")

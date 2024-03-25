@@ -2,9 +2,7 @@ package com.groupa3.groupa3.dao;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +16,6 @@ public class DataAccessObject {
     private final UserRepositoryInterface userRepository;
     private final TaskRepositoryInterface taskRepository;
 
-    @Autowired
     public DataAccessObject(UserRepositoryInterface userRepository, TaskRepositoryInterface taskRepository) {
         this.userRepository = userRepository;
         this.taskRepository = taskRepository;

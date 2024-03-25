@@ -8,7 +8,6 @@ import java.util.Optional;
 import javax.sql.DataSource;
 
 import java.util.*;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import com.groupa3.groupa3.dto.TaskDto;
