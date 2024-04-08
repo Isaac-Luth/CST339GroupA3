@@ -22,8 +22,6 @@ public class TaskCreationController {
     @PostMapping("/create")
     public String createTask(@ModelAttribute TaskDto taskDto) {
 
-        Task task = new Task(taskDto.getName(), taskDto.getDescription(), taskDto.getManHoursExpected());
-
         dataAccessObject.createTask(taskDto);
 
         return "redirect:/createTask?success";
