@@ -1,6 +1,7 @@
 package com.groupa3.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.groupa3.dao.DataAccessObject;
@@ -16,6 +17,8 @@ public class RegistrationService {
     @Autowired
     private DataAccessObject dataAccessObject;
 
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
     public boolean register(UserDto registrationDto) {
         if (!verifyInputs.isValidEmail(registrationDto.getEmail()) ||
                 !registrationDto.getEmail().equals(registrationDto.getVerifyemail())) {
@@ -28,6 +31,8 @@ public class RegistrationService {
             System.out.println("Password validation failed");
             return false;
         }
+
+        registrationDto.setPassword(passwordEncoder.encode(registrationDto.getPassword()));
 
         if (!dataAccessObject.createUser(registrationDto)) {
             System.out.println("User creation failed");

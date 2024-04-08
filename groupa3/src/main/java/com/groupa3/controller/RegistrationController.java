@@ -18,7 +18,7 @@ public class RegistrationController {
     @Autowired
     private RegistrationService registrationService;
 
-    // Method to add an empty UserRegistrationDto to the model
+    // Method to add an empty UserDto to the model
     @ModelAttribute("userRegistrationDto")
     public UserDto userDto() {
         return new UserDto();
@@ -29,6 +29,8 @@ public class RegistrationController {
             BindingResult result) {
         // Here, you can add your validation logic. If there are errors, return back to
         // the registration form view.
+        System.out.println("In Registration");
+
         if (result.hasErrors()) {
             return "signup"; // Assuming 'signup' is the name of your registration form view.
         }
@@ -38,12 +40,14 @@ public class RegistrationController {
         registrationDto.setTelephone(tempPhoneNumber);
 
         if (!registrationService.register(registrationDto)) {
+            System.out.println("In Fail");
             return "signup";
         }
-        return "redirect:/registration?success";
+        System.out.println("In Success");
+        return "redirect:/registrationSuccess";
     }
 
-    @GetMapping
+    @GetMapping("/registrationSuccess")
     public String registrationSuccess() {
         return "menu";
     }

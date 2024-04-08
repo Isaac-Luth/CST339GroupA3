@@ -23,12 +23,14 @@ public class LoginService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        System.out.println(email);
         UserDto user = service.getUserByEmail(email);
 
-        if (user == null) { throw new UsernameNotFoundException("Email Not Found"); }
+        if (user.getEmail() == null || user.getPassword() == null) { throw new UsernameNotFoundException(email); }
 
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         authorities.add(new SimpleGrantedAuthority("USER"));
+
         return new User(user.getEmail(), user.getPassword(), authorities);
     }
 
