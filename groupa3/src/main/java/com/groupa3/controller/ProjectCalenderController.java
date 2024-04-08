@@ -1,4 +1,4 @@
-package com.groupa3.groupa3.controller;
+package com.groupa3.controller;
 
 import java.util.List;
 
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.groupa3.groupa3.dao.DataAccessObject;
-import com.groupa3.groupa3.dto.TaskDto;
+import com.groupa3.dao.DataAccessObject;
+import com.groupa3.dto.TaskDto;
 
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -22,7 +22,7 @@ public class ProjectCalenderController {
     @Autowired
     private DataAccessObject dataAccessObject;
 
-    @RequestMapping("/view")
+    @GetMapping("/view")
     public String viewTasks(Model model) {
 
         List<TaskDto> tasks = dataAccessObject.getTasks();

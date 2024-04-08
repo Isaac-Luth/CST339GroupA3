@@ -1,4 +1,4 @@
-package com.groupa3.groupa3.dao;
+package com.groupa3.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +10,8 @@ import javax.sql.DataSource;
 import java.util.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import com.groupa3.groupa3.dto.TaskDto;
+
+import com.groupa3.dto.TaskDto;
 
 @Repository
 public class TaskRepository implements TaskRepositoryInterface{
@@ -24,7 +25,7 @@ public class TaskRepository implements TaskRepositoryInterface{
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "null" })
     @Override
     public TaskDto save(TaskDto taskDto) {
         String sql = "INSERT INTO task (Name, Description, Duration) VALUES (?, ?, ?)";
@@ -43,6 +44,7 @@ public class TaskRepository implements TaskRepositoryInterface{
         return savedTaskDto;
     }
 
+    @SuppressWarnings("null")
     @Override
     public Optional<TaskDto> findById(Long id) {
         // Implement logic to find task by id in the database
@@ -69,6 +71,7 @@ public class TaskRepository implements TaskRepositoryInterface{
         return Optional.of(taskDto);
     }
 
+    @SuppressWarnings("null")
     public boolean updateTask(TaskDto taskDto) {
         boolean taskUpdated = false;
 
@@ -89,12 +92,14 @@ public class TaskRepository implements TaskRepositoryInterface{
         return taskUpdated;
     }
 
+    @SuppressWarnings("null")
     @Override
     public long count() {
         String sql = "SELECT COUNT(*) FROM task";
         return jdbcTemplate.queryForObject(sql, Long.class);
     }
 
+    @SuppressWarnings("null")
     @Override
     public void delete(TaskDto entity) {
         String sql = "DELETE FROM task WHERE idTask = ?";
@@ -107,6 +112,7 @@ public class TaskRepository implements TaskRepositoryInterface{
         jdbcTemplate.update(sql);
     }
 
+    @SuppressWarnings("null")
     @Override
     public void deleteAll(Iterable<? extends TaskDto> entities) {
         String sql = "DELETE FROM task WHERE idTask = ?";
@@ -115,6 +121,7 @@ public class TaskRepository implements TaskRepositoryInterface{
         jdbcTemplate.batchUpdate(sql, ids);
     }
 
+    @SuppressWarnings("null")
     @Override
     public void deleteAllById(Iterable<? extends Long> ids) {
         String sql = "DELETE FROM task WHERE idTask = ?";
@@ -123,6 +130,7 @@ public class TaskRepository implements TaskRepositoryInterface{
         jdbcTemplate.batchUpdate(sql, idList);
     }
 
+    @SuppressWarnings("null")
     @Override
     public void deleteById(Long id) {
         String sql = "DELETE FROM task WHERE idTask = ?";
@@ -135,7 +143,7 @@ public class TaskRepository implements TaskRepositoryInterface{
         }
     }
 
-    @SuppressWarnings("deprecation")
+    @SuppressWarnings({ "deprecation", "null" })
     @Override
     public boolean existsById(Long id) {
         String sql = "SELECT COUNT(*) FROM task WHERE idTask = ?";
@@ -143,6 +151,7 @@ public class TaskRepository implements TaskRepositoryInterface{
         return count != null && count > 0;
     }
 
+    @SuppressWarnings("null")
     @Override
     public Iterable<TaskDto> findAll() {
         String sql = "SELECT * FROM task";
@@ -168,6 +177,7 @@ public class TaskRepository implements TaskRepositoryInterface{
         return taskList;
     }
 
+    @SuppressWarnings("null")
     @Override
     public Iterable<TaskDto> findAllById(Iterable<Long> ids) {
         List<TaskDto> tasks = new ArrayList<>();
@@ -175,6 +185,7 @@ public class TaskRepository implements TaskRepositoryInterface{
         return tasks;
     }
 
+    @SuppressWarnings("null")
     @Override
     public <S extends TaskDto> Iterable<S> saveAll(Iterable<S> entities) {
         String sql = "INSERT INTO task (idTask, Name, Description, Duration) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE Name = VALUES(Name), Description = VALUES(Description), Duration = VALUES(Duration)";

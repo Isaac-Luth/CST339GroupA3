@@ -1,4 +1,4 @@
-package com.groupa3.groupa3.dao;
+package com.groupa3.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,8 +9,9 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import com.groupa3.groupa3.dao.UserRepository;
-import com.groupa3.groupa3.dto.UserDto;
+
+import com.groupa3.dao.UserRepository;
+import com.groupa3.dto.UserDto;
 
 @SuppressWarnings("null")
 @Repository

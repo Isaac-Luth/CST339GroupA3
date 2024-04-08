@@ -1,6 +1,7 @@
-package com.groupa3.groupa3.model;
+package com.groupa3.model;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UserTests {

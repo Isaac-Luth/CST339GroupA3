@@ -1,4 +1,4 @@
-package com.groupa3.groupa3.dto;
+package com.groupa3.dto;
 
 public class TaskDto {
 

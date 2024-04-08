@@ -1,4 +1,4 @@
-package com.groupa3.groupa3.util;
+package com.groupa3.util;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
 
 @SpringBootTest(classes = VerifyInputs.class)
 public class VerifyInputsTests {

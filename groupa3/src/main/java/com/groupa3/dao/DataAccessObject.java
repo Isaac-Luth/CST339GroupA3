@@ -1,4 +1,4 @@
-package com.groupa3.groupa3.dao;
+package com.groupa3.dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,8 @@ import java.util.List;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.groupa3.groupa3.dto.TaskDto;
-import com.groupa3.groupa3.dto.UserDto;
+import com.groupa3.dto.TaskDto;
+import com.groupa3.dto.UserDto;
 
 @Component
 @Scope("singleton")
@@ -52,6 +52,20 @@ public class DataAccessObject {
         try {
             userDto = userRepository.findById(id);
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return userDto;
+    }
+
+    public UserDto getUserByEmail(String email)
+    {
+        UserDto userDto = null;
+
+        try {
+            userDto = userRepository.findByEmail(email);
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
 

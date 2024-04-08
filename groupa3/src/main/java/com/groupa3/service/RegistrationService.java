@@ -1,11 +1,11 @@
-package com.groupa3.groupa3.service;
+package com.groupa3.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.groupa3.groupa3.dao.DataAccessObject;
-import com.groupa3.groupa3.dto.UserDto;
-import com.groupa3.groupa3.util.VerifyInputs;
+import com.groupa3.dao.DataAccessObject;
+import com.groupa3.dto.UserDto;
+import com.groupa3.util.VerifyInputs;
 
 @Service
 public class RegistrationService {

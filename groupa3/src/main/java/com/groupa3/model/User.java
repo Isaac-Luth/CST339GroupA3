@@ -1,4 +1,4 @@
-package com.groupa3.groupa3.model;
+package com.groupa3.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
