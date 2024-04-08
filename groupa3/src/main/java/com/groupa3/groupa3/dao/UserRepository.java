@@ -151,6 +151,7 @@ public class UserRepository implements UserRepositoryInterface {
         jdbcTemplate.update(sql, id);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean existsById(Long id) {
         String sql = "SELECT COUNT(*) FROM user WHERE idUser = ?";
@@ -203,6 +204,7 @@ public class UserRepository implements UserRepositoryInterface {
         throw new UnsupportedOperationException("Unimplemented method 'findById'");
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean existsByUsername(String username) {
         String sql = "SELECT COUNT(*) FROM user WHERE Username = ?";

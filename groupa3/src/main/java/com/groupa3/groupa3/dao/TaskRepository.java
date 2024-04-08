@@ -12,7 +12,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import com.groupa3.groupa3.dto.TaskDto;
 
-@SuppressWarnings("null")
 @Repository
 public class TaskRepository implements TaskRepositoryInterface{
 
@@ -136,6 +135,7 @@ public class TaskRepository implements TaskRepositoryInterface{
         }
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean existsById(Long id) {
         String sql = "SELECT COUNT(*) FROM task WHERE idTask = ?";
