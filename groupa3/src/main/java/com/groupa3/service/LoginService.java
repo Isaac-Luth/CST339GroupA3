@@ -23,7 +23,6 @@ public class LoginService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        System.out.println(email);
         UserDto user = service.getUserByEmail(email);
 
         if (user.getEmail() == null || user.getPassword() == null) { throw new UsernameNotFoundException(email); }

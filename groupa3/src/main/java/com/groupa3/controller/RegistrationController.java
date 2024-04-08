@@ -29,7 +29,6 @@ public class RegistrationController {
             BindingResult result) {
         // Here, you can add your validation logic. If there are errors, return back to
         // the registration form view.
-        System.out.println("In Registration");
 
         if (result.hasErrors()) {
             return "signup"; // Assuming 'signup' is the name of your registration form view.
@@ -40,10 +39,8 @@ public class RegistrationController {
         registrationDto.setTelephone(tempPhoneNumber);
 
         if (!registrationService.register(registrationDto)) {
-            System.out.println("In Fail");
             return "signup";
         }
-        System.out.println("In Success");
         return "redirect:/registrationSuccess";
     }
 

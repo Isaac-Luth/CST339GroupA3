@@ -184,7 +184,6 @@ public class UserRepository implements UserRepositoryInterface {
             pstmt.setString(4, entity.getFirstname());
             pstmt.setString(5, entity.getLastname());
             pstmt.setString(6, entity.getTelephone());
-            System.out.println(pstmt.toString());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

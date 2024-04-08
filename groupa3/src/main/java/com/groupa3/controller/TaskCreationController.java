@@ -26,8 +26,6 @@ public class TaskCreationController {
 
         dataAccessObject.createTask(taskDto);
 
-        System.out.println(task.toString());
-
         return "redirect:/createTask?success";
     }
 
