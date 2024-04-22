@@ -66,8 +66,7 @@ public class TaskRepository implements TaskRepositoryInterface{
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
+        
         return Optional.of(taskDto);
     }
 

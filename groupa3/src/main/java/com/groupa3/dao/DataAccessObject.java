@@ -137,6 +137,16 @@ public class DataAccessObject {
             e.printStackTrace();
         }
 
+        if (taskDto == null)
+        {
+            return null;
+        }
+
+        if (taskDto.getId() == 0)
+        {
+            return null;
+        }
+
         return taskDto;
     }
 

@@ -10,6 +10,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.groupa3.service.LoginService;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @SuppressWarnings("deprecation")
 @Configuration
 @EnableWebSecurity
@@ -21,24 +23,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
-            http.csrf().disable()
-                .authorizeRequests()
-                    .antMatchers("/", "/assets/**", "/service/**", "/signup", "/registration/**").permitAll()
-                    .anyRequest().authenticated()
-                    .and()
-                .formLogin()
-                    .loginPage("/login")
-                    .usernameParameter("email")
-                    .passwordParameter("password")
-                    .permitAll()
-                    .defaultSuccessUrl("/menu", true)
-                    .and()
-                .logout()
-                    .logoutUrl("/logout")
-                    .invalidateHttpSession(true)
-                    .clearAuthentication(true)
-                    .permitAll()
-                    .logoutSuccessUrl("/");
+            http.csrf(csrf -> csrf.disable())
+                    .httpBasic(withDefaults())
+                    .authorizeRequests(requests -> requests
+                            .antMatchers("/service/**").authenticated())
+                    .authorizeRequests(requests -> requests
+                            .antMatchers("/", "/assets/**", "/signup", "/registration/**").permitAll()
+                            .anyRequest().authenticated())
+                    .formLogin(login -> login
+                            .loginPage("/login")
+                            .usernameParameter("email")
+                            .passwordParameter("password")
+                            .permitAll()
+                            .defaultSuccessUrl("/menu", true))
+                    .logout(logout -> logout
+                            .logoutUrl("/logout")
+                            .invalidateHttpSession(true)
+                            .clearAuthentication(true)
+                            .permitAll()
+                            .logoutSuccessUrl("/"));
         }
 
         @Autowired

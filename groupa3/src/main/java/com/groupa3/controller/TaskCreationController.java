@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.groupa3.dao.DataAccessObject;
 import com.groupa3.dto.TaskDto;
-import com.groupa3.model.Task;
 
 import org.springframework.web.bind.annotation.PostMapping;
 
