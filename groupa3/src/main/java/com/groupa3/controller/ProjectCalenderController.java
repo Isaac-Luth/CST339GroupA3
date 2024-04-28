@@ -15,6 +15,9 @@ import com.groupa3.dto.TaskDto;
 
 import org.springframework.web.bind.annotation.PostMapping;
 
+/**
+ * Controller for the project calender
+ */
 @Controller
 @RequestMapping("/projectCalender")
 public class ProjectCalenderController {
@@ -22,6 +25,11 @@ public class ProjectCalenderController {
     @Autowired
     private DataAccessObject dataAccessObject;
 
+    
+    /** 
+     * @param model The model to add attributes to
+     * @return String The name of the view to display
+     */
     @GetMapping("/view")
     public String viewTasks(Model model) {
 
@@ -32,6 +40,12 @@ public class ProjectCalenderController {
         return "projectCalender";
     }
 
+    
+    /** 
+     * @param id The id of the task to edit
+     * @param model The model to add attributes to
+     * @return String The name of the view to display
+     */
     @RequestMapping("/editTask/{id}")
     public String editTask(@PathVariable("id") Long id, Model model) {
 
@@ -42,6 +56,11 @@ public class ProjectCalenderController {
         return "taskEdit";
     }
 
+    
+    /** 
+     * @param taskDto The task to update
+     * @return String The name of the view to display
+     */
     @PostMapping("/comfirmEdit")
     public String comfirmEdit(@ModelAttribute TaskDto taskDto) {
 
@@ -50,6 +69,11 @@ public class ProjectCalenderController {
         return "redirect:/projectCalender/view";
     }
 
+    
+    /** 
+     * @param taskDto The task to delete
+     * @return String The name of the view to display
+     */
     @PostMapping("/delete")
     public String deleteTask(@ModelAttribute TaskDto taskDto) {
 
@@ -58,11 +82,20 @@ public class ProjectCalenderController {
         return "redirect:/projectCalender/view";
     }
 
+    
+    /** 
+     * @param taskDto The task that was being created
+     * @return String The name of the view to display
+     */
     @RequestMapping("/cancel")
     public String cancelCreateTask(@ModelAttribute TaskDto taskDto) {
         return "menu";
     }
 
+    
+    /** 
+     * @return String The name of the view to display
+     */
     @GetMapping
     public String createTaskSuccess() {
         return "menu";

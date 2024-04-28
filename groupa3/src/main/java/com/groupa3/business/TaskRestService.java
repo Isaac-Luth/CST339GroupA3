@@ -14,18 +14,32 @@ import com.groupa3.dto.TaskDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-
+/**
+ * TaskRestService
+ */
 @RestController
 @RequestMapping("/service")
 public class TaskRestService {
+    
     @Autowired
     private DataAccessObject dataAccessObject;
 
+    
+    /** 
+     *  Get all tasks
+     * @return List TaskDto A list of all tasks
+     */
     @GetMapping(path = "/getalltasks", produces = { MediaType.APPLICATION_JSON_VALUE })
     public List<TaskDto> getAllTasks() {
         return dataAccessObject.getTasks();
     }
 
+    
+    /** 
+     *  Get a task by id
+     * @param id The id of the task to get
+     * @return ResponseEntity ? The task with the given id
+     */
     @GetMapping(path = "/gettask/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
     public ResponseEntity<?> getTask(@PathVariable("id") Long id) {
         try {

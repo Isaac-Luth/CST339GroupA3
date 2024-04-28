@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.groupa3.dto.UserDto;
 import com.groupa3.service.RegistrationService;
 
+/**
+ * Controller for user registration
+ */
 @Controller
 @RequestMapping("/registration")
 public class RegistrationController {
@@ -18,20 +21,28 @@ public class RegistrationController {
     @Autowired
     private RegistrationService registrationService;
 
-    // Method to add an empty UserDto to the model
+    
+    
+    /** 
+     * @return UserDto The user registration dto
+     */
     @ModelAttribute("userRegistrationDto")
     public UserDto userDto() {
         return new UserDto();
     }
 
+    
+    /** 
+     * @param registrationDto The user registration dto
+     * @param result The binding result
+     * @return String The name of the view to display
+     */
     @PostMapping("/register")
     public String registerUserAccount(@ModelAttribute("userRegistrationDto") UserDto registrationDto,
             BindingResult result) {
-        // Here, you can add your validation logic. If there are errors, return back to
-        // the registration form view.
 
         if (result.hasErrors()) {
-            return "signup"; // Assuming 'signup' is the name of your registration form view.
+            return "signup";
         }
 
         String tempPhoneNumber = registrationDto.getTelephone();
@@ -44,6 +55,10 @@ public class RegistrationController {
         return "redirect:/registrationSuccess";
     }
 
+    
+    /** 
+     * @return String The name of the view to display
+     */
     @GetMapping("/registrationSuccess")
     public String registrationSuccess() {
         return "menu";

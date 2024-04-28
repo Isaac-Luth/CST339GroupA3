@@ -9,6 +9,10 @@ import org.springframework.stereotype.Component;
 import com.groupa3.dto.TaskDto;
 import com.groupa3.dto.UserDto;
 
+
+/**
+ * Data access object for the application
+ */
 @Component
 @Scope("singleton")
 public class DataAccessObject {
@@ -16,11 +20,21 @@ public class DataAccessObject {
     private final UserRepositoryInterface userRepository;
     private final TaskRepositoryInterface taskRepository;
 
+    /**
+     * Constructor for the data access object
+     * @param userRepository The user repository
+     * @param taskRepository The task repository
+     */
     public DataAccessObject(UserRepositoryInterface userRepository, TaskRepositoryInterface taskRepository) {
         this.userRepository = userRepository;
         this.taskRepository = taskRepository;
     }
 
+    
+    /** 
+     * @param userDto The user to register
+     * @return boolean Whether the user was registered
+     */
     public boolean createUser(UserDto userDto) {
         boolean userCreated = false;
 
@@ -34,6 +48,11 @@ public class DataAccessObject {
         return userCreated;
     }
 
+    
+    /** 
+     * @param username The username of the user to get
+     * @return UserDto The user with the given username
+     */
     public UserDto getUser(String username) {
         UserDto userDto = null;
 
@@ -46,6 +65,11 @@ public class DataAccessObject {
         return userDto;
     }
 
+    
+    /** 
+     * @param id The id of the user to get
+     * @return UserDto The user with the given id
+     */
     public UserDto getUser(int id) {
         UserDto userDto = null;
 
@@ -58,6 +82,11 @@ public class DataAccessObject {
         return userDto;
     }
 
+    
+    /** 
+     * @param email The email of the user to get
+     * @return UserDto The user with the given email
+     */
     public UserDto getUserByEmail(String email)
     {
         UserDto userDto = null;
@@ -72,6 +101,11 @@ public class DataAccessObject {
         return userDto;
     }
 
+    
+    /** 
+     * @param userDto The user to authenticate
+     * @return boolean Whether the user was authenticated
+     */
     public boolean authenticateUser(UserDto userDto) {
         boolean authenticated = false;
 
@@ -91,6 +125,10 @@ public class DataAccessObject {
         return authenticated;
     }
 
+    
+    /** 
+     * @return List UserDto  A list of all users
+     */
     public List<UserDto> getAllUsers() {
         List<UserDto> users = new ArrayList<>();
 
@@ -103,6 +141,11 @@ public class DataAccessObject {
         return users;
     }
 
+    
+    /** 
+     * @param taskDto The task to create
+     * @return boolean Whether the task was created
+     */
     public boolean createTask(TaskDto taskDto) {
         boolean taskCreated = false;
 
@@ -116,6 +159,10 @@ public class DataAccessObject {
         return taskCreated;
     }
 
+    
+    /** 
+     * @return List TaskDto  A list of all tasks
+     */
     public List<TaskDto> getTasks() {
         List<TaskDto> tasks = new ArrayList<>();
 
@@ -128,6 +175,11 @@ public class DataAccessObject {
         return tasks;
     }
 
+    
+    /** 
+     * @param id The id of the task to get
+     * @return TaskDto The task with the given id
+     */
     public TaskDto getTask(Long id) {
         TaskDto taskDto = null;
 
@@ -150,6 +202,11 @@ public class DataAccessObject {
         return taskDto;
     }
 
+    
+    /** 
+     * @param taskDto The task to update
+     * @return boolean Whether the task was updated
+     */
     public boolean updateTask(TaskDto taskDto) {
         boolean taskUpdated = false;
 
@@ -163,6 +220,11 @@ public class DataAccessObject {
         return taskUpdated;
     }
 
+    
+    /** 
+     * @param id The id of the task to delete
+     * @return boolean Whether the task was deleted
+     */
     public boolean deleteTask(Long id) {
         boolean taskDeleted = false;
 

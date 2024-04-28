@@ -6,9 +6,18 @@ import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * This class is used to verify the inputs that are entered by the user
+ */
 @Component
 public class VerifyInputs {
 
+	
+	/** 
+	 * This method is used to verify that the input is indeed an email
+	 * @param input The email
+	 * @return boolean Whether the input is an email
+	 */
 	// isEmail method is used to verify that the input is indeed an email
 	public boolean isValidEmail(String input) {
 		// Define a regular expression pattern for a simple email validation
@@ -33,7 +42,7 @@ public class VerifyInputs {
 	 * - At least one uppercase letter
 	 * - At least one lowercase letter
 	 * - At least one digit
-	 * - At least one special character from the set (!@#$%^&*)
+	 * - At least one special character
 	 * 
 	 * @param password The password string to be verified.
 	 * @return true if the password meets all the criteria, false otherwise.
@@ -59,23 +68,23 @@ public class VerifyInputs {
 		if (!password.matches(".*[!@#$%^&*].*")) {
 			return false;
 		}
-		// If all checks pass, the password meets the criteria
+		
 		return true;
 	}
 
-	// Method to verify if the phone number entered is a true phone number
+	
+	/** 
+	 *  This method is used to verify that the phone number is valid
+	 * @param input The phone number
+	 * @return boolean Whether the phone number is valid
+	 */
 	public boolean isValidPhoneNumber(String input) {
-		// Phone number pattern
-		// The number should be 10 digits
 		String phoneNumberPattern = "^\\d{10}$";
 
-		// Compile method used to validate the pattern
 		Pattern p = Pattern.compile(phoneNumberPattern);
 
-		// Uses the pattern to make a matcher
 		Matcher m = p.matcher(input);
 
-		// Returns true if the input matches the pattern, if not returns false
 		return (m.matches());
 	}
 }

@@ -12,6 +12,9 @@ import com.groupa3.service.LoginService;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
+/**
+ * The security configuration
+ */
 @SuppressWarnings("deprecation")
 @Configuration
 @EnableWebSecurity
@@ -21,6 +24,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         private LoginService service;
         private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+        
+        /** 
+         *  Configure the http security
+         * @param http The http security
+         * @throws Exception If the http security fails
+         */
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http.csrf(csrf -> csrf.disable())
@@ -44,6 +53,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             .logoutSuccessUrl("/"));
         }
 
+        
+        /** 
+         *  Configure the authentication manager builder
+         * @param auth The authentication manager builder
+         * @throws Exception If the authentication manager builder fails
+         */
         @Autowired
         public void configure(AuthenticationManagerBuilder auth) throws Exception {
                 auth

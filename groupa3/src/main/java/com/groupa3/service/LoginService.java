@@ -15,12 +15,22 @@ import org.springframework.stereotype.Service;
 import com.groupa3.dao.DataAccessObject;
 import com.groupa3.dto.UserDto;
 
+/**
+ * Service for logging in a user
+ */
 @Service
 public class LoginService implements UserDetailsService {
 
     @Autowired
     DataAccessObject service;
 
+    
+    /** 
+     *  Get the user with the given email
+     * @param email The email of the user to get
+     * @return UserDetails The user with the given email
+     * @throws UsernameNotFoundException If the user is not found
+     */
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         UserDto user = service.getUserByEmail(email);

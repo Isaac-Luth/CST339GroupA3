@@ -8,6 +8,9 @@ import com.groupa3.dao.DataAccessObject;
 import com.groupa3.dto.UserDto;
 import com.groupa3.util.VerifyInputs;
 
+/**
+ * Service for registering a user
+ */
 @Service
 public class RegistrationService {
 
@@ -19,6 +22,12 @@ public class RegistrationService {
 
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+    
+    /** 
+     *  Register a user
+     * @param registrationDto The user registration dto
+     * @return boolean Whether the user was registered
+     */
     public boolean register(UserDto registrationDto) {
         if (!verifyInputs.isValidEmail(registrationDto.getEmail()) ||
                 !registrationDto.getEmail().equals(registrationDto.getVerifyemail())) {
